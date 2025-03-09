@@ -11,9 +11,8 @@ body {
 .container {
     display: flex;
     flex-wrap: wrap;
-    width: 960px;
-    height: 880px;
-    margin-top: 12px;
+    align-content: flex-start; 
+    /* align content flex-start fixed the spacing between rows issue */
 }
 
 button {
@@ -26,6 +25,7 @@ button {
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-left: 50px;
 }
 
 

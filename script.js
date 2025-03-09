@@ -1,6 +1,12 @@
+//SQUARES DON'T FILL UP THE AVAILABLE AREA PERFECTLY.
+
+const containerSize = 910;
 const container = document.querySelector(".container");
 const btn = document.querySelector("button");
 let specificDimension = false;
+
+container.style.width = `${containerSize}px`;
+container.style.height = `${containerSize}px`;
 
 let dimension = 16;
 let numSquares = dimension*dimension; // 16x16 grid
@@ -12,7 +18,7 @@ if(!specificDimension) populateGrid(numSquares, dimension);
 function handleDimension() {
     specificDimension = true;
     let sqs = prompt("enter dimension");
-    if (sqs>25) sqs=25;
+    if (sqs>50) sqs=50;
     sqArr.length = 0;
     dimension = sqs;
     numSquares = sqs*sqs;
@@ -30,11 +36,14 @@ function populateGrid(numSquares, dimension) {
     for(let i = 0; i<numSquares; i++) {
         const sqDiv = document.createElement("div");
         container.appendChild(sqDiv);
-    
+
+        let squareSize = containerSize/dimension;
         sqArr.push(sqDiv);
         sqDiv.setAttribute("id", "sq" + String(i)); // set unique number ID to each square
         sqDiv.setAttribute("class", "square");
-        sqDiv.setAttribute("style", `width: ${95/dimension}%; height: ${97/dimension}%;`);
+        sqDiv.setAttribute("style", `width: ${squareSize}px; height: ${squareSize}px;`); // changed this
+        sqDiv.style.boxSizing = "border-box";
+        if(!(i >= (numSquares-dimension))) sqDiv.style.borderBottom = "0px";
     }
 }
 
