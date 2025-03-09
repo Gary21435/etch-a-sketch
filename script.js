@@ -1,18 +1,44 @@
 const container = document.querySelector(".container");
+const btn = document.querySelector("button");
+let specificDimension = false;
+
 let dimension = 16;
 let numSquares = dimension*dimension; // 16x16 grid
 
 let sqArr = new Array(numSquares);
 
-for(let i = 0; i<numSquares; i++) {
-    const sqDiv = document.createElement("div");
-    container.appendChild(sqDiv);
+if(!specificDimension) populateGrid(numSquares, dimension);
 
-    sqArr.push(sqDiv);
-    sqDiv.setAttribute("id", "sq" + String(i)); // set unique number ID to each square
-    sqDiv.setAttribute("class", "square");
-    sqDiv.setAttribute("style", `width: ${95/dimension}%; height: ${97/dimension}%;`);
+function handleDimension() {
+    specificDimension = true;
+    let sqs = prompt("enter dimension");
+    if (sqs>25) sqs=25;
+    sqArr.length = 0;
+    dimension = sqs;
+    numSquares = sqs*sqs;
+    deleteSquares();
+    populateGrid(numSquares, sqs);
 }
+
+function deleteSquares() {
+    while(container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
+function populateGrid(numSquares, dimension) {
+    for(let i = 0; i<numSquares; i++) {
+        const sqDiv = document.createElement("div");
+        container.appendChild(sqDiv);
+    
+        sqArr.push(sqDiv);
+        sqDiv.setAttribute("id", "sq" + String(i)); // set unique number ID to each square
+        sqDiv.setAttribute("class", "square");
+        sqDiv.setAttribute("style", `width: ${95/dimension}%; height: ${97/dimension}%;`);
+    }
+}
+
+
 
 function handleHover(e) {
     const square = e.target;
@@ -40,3 +66,4 @@ function handleHover(e) {
 }
 
 container.addEventListener("mouseover", (e) => handleHover(e));
+btn.addEventListener("click", handleDimension);
